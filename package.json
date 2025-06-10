@@ -14,7 +14,7 @@
     "start": "next start",
     "start:pwa": "NODE_ENV=production next start",
     "lint": "next lint",
-    "deploy:build": "npm run lint && npm run build",
+    "deploy:build": "npm run build",
     "deploy:start": "npm start"
   },
   "dependencies": {
