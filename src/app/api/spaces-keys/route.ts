@@ -51,17 +51,16 @@ export async function POST(request: NextRequest) {
       bucket: process.env.SPACES_BUCKET,
       region: process.env.SPACES_REGION,
       endpoint: process.env.SPACES_ENDPOINT
-    });
-
-  } catch (error: any) {
-    console.error('Error creating Spaces key:', error.response?.data || error.message);
+    });  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('Error creating Spaces key:', errorMessage);
     
     return NextResponse.json(
       { 
         error: 'Failed to create Spaces access key',
-        details: error.response?.data?.message || error.message
+        details: errorMessage
       },
-      { status: error.response?.status || 500 }
+      { status: 500 }
     );
   }
 }
@@ -92,16 +91,16 @@ export async function GET() {
       success: true,
       keys: response.data.keys
     });
-
-  } catch (error: any) {
-    console.error('Error fetching Spaces keys:', error.response?.data || error.message);
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('Error fetching Spaces keys:', errorMessage);
     
     return NextResponse.json(
       { 
         error: 'Failed to fetch Spaces keys',
-        details: error.response?.data?.message || error.message
+        details: errorMessage
       },
-      { status: error.response?.status || 500 }
+      { status: 500 }
     );
   }
 }

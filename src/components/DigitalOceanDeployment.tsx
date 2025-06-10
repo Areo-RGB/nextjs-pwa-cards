@@ -30,7 +30,7 @@ export default function DigitalOceanDeployment() {
   const [isDeploying, setIsDeploying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [apps, setApps] = useState<App[]>([]);
-  const [deploymentResult, setDeploymentResult] = useState<any>(null);
+  const [deploymentResult, setDeploymentResult] = useState<Record<string, unknown> | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const fetchApps = async () => {
@@ -89,9 +89,8 @@ export default function DigitalOceanDeployment() {
     const variant = phase === 'ACTIVE' ? 'default' : 
                    phase === 'DEPLOYING' ? 'secondary' : 
                    phase === 'ERROR' ? 'destructive' : 'outline';
-    
-    return (
-      <Badge variant={variant as any} className="text-xs">
+      return (
+      <Badge variant={variant as "default" | "secondary" | "destructive" | "outline"} className="text-xs">
         {phase}
       </Badge>
     );
@@ -118,20 +117,14 @@ export default function DigitalOceanDeployment() {
           <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
             <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
           </div>
-        )}
-
-        {deploymentResult && (
+        )}        {deploymentResult && (
           <div className="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-md">
             <p className="text-sm text-green-700 dark:text-green-300 font-medium">
-              ✅ {deploymentResult.message}
+              ✅ Deployment completed successfully
             </p>
-            {deploymentResult.app?.live_url && (
-              <p className="text-sm text-green-600 dark:text-green-400 mt-1">
-                URL: <a href={deploymentResult.app.live_url} target="_blank" rel="noopener noreferrer" className="underline">
-                  {deploymentResult.app.live_url}
-                </a>
-              </p>
-            )}
+            <p className="text-sm text-green-600 dark:text-green-400 mt-1">
+              Check your DigitalOcean dashboard for deployment details.
+            </p>
           </div>
         )}
 
