@@ -1,0 +1,33 @@
+# DigitalOcean App Platform Configuration
+# This file defines how your application will be deployed on DigitalOcean App Platform
+
+name: platform-pwa-app
+services:
+- name: web
+  source_dir: /
+  github:
+    branch: main
+    deploy_on_push: true
+  run_command: npm start
+  build_command: npm run build
+  environment_slug: node-js
+  instance_count: 1
+  instance_size_slug: basic-xxs
+  routes:
+  - path: /
+  health_check:
+    http_path: /
+  envs:
+  - key: NODE_ENV
+    value: production
+  - key: NEXT_TELEMETRY_DISABLED
+    value: "1"
+
+# Static Assets (Optional - for CDN optimization)
+static_sites: []
+
+# Databases (if needed in future)
+databases: []
+
+# Jobs (if needed for background tasks)
+jobs: []
