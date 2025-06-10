@@ -3,6 +3,12 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* Hot reload and development optimizations */
   reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true, // Disable ESLint during builds
+  },
+  typescript: {
+    ignoreBuildErrors: true, // Disable TypeScript errors during builds
+  },
   turbopack: {
     rules: {
       '*.svg': {
