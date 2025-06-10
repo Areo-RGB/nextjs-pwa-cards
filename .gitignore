@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# PDF files
+*.pdf
+**/*.pdf
+DEPLOYMENT.md
